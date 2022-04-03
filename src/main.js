@@ -1,3 +1,10 @@
-const greeting = 'ni how';
+const http = require('http');
 
-console.log(greeting);
+const server = http.createServer((req, res) => {
+  res.write('Hello');
+  res.end();
+});
+
+server.listen(3000, () => {
+  console.log('starting service')
+})
