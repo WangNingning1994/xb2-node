@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+/**
+ *  middleware for handling json format data from client side
+ */
+app.use(express.json());
+
 app.listen(port, () => {
   console.log('starting service');
 })
@@ -34,4 +39,26 @@ app.get('/posts/:postId', (req, res) => {
 
   // responsse
   res.send(posts[0])
+})
+
+/**
+ * 创建内容
+ */
+app.post('/posts', (req, res) => {
+  // 获取请求里的数据
+  const { content } = req.body;
+  
+  // 获取请求头数据
+  const areYouOK = req.headers['are-you-ok'];
+  console.log(`Are you ok? ${ areYouOK }`);
+
+  // 设置响应头数据
+  res.set('Are-you-ok', 'No');
+
+  // 设置状态码
+  res.status(201);
+  // 作出响应
+  res.send({
+    message: `成功创建了内容：${content}`
+  })
 })
