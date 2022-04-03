@@ -2,5 +2,8 @@
   "name": "fuck-node",
   "version": "1.0.0",
   "description": "No description",
-  "author": "WangNingning"
+  "author": "WangNingning",
+  "dependencies": {
+    "express": "4.17.1"
+  }
 }
