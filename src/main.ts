@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 const app = express();
 const port = 3000;
 
+console.log('test');
+
 /**
  *  middleware for handling json format data from client side
  */
@@ -10,26 +12,26 @@ app.use(express.json());
 
 app.listen(port, () => {
   console.log('starting service');
-})
+});
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, world')
-})
+  res.send('Hello, world');
+});
 
 const data = [
   {
     id: 1,
-    name: 'Andy'
+    name: 'Andy',
   },
   {
     id: 2,
-    name: 'Jack'
-  }
-]
+    name: 'Jack',
+  },
+];
 
 app.get('/posts', (req: Request, res: Response) => {
-  res.send(data)
-})
+  res.send(data);
+});
 
 app.get('/posts/:postId', (req, res) => {
   // get params from header
@@ -39,8 +41,8 @@ app.get('/posts/:postId', (req, res) => {
   const posts = data.filter(item => item.id == parseInt(postId));
 
   // responsse
-  res.send(posts[0])
-})
+  res.send(posts[0]);
+});
 
 /**
  * 创建内容
@@ -48,10 +50,10 @@ app.get('/posts/:postId', (req, res) => {
 app.post('/posts', (req: Request, res: Response) => {
   // 获取请求里的数据
   const { content } = req.body;
-  
+
   // 获取请求头数据
   const areYouOK = req.headers['are-you-ok'];
-  console.log(`Are you ok? ${ areYouOK }`);
+  console.log(`Are you ok? ${areYouOK}`);
 
   // 设置响应头数据
   res.set('Are-you-ok', 'No');
@@ -60,6 +62,6 @@ app.post('/posts', (req: Request, res: Response) => {
   res.status(201);
   // 作出响应
   res.send({
-    message: `成功创建了内容：${content}`
-  })
-})
+    message: `成功创建了内容：${content}`,
+  });
+});
