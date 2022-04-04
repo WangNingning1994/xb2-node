@@ -1,4 +1,5 @@
 import express from 'express';
+import { Request, Response } from 'express';
 const app = express();
 const port = 3000;
 
@@ -11,7 +12,7 @@ app.listen(port, () => {
   console.log('starting service');
 })
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello, world')
 })
 
@@ -26,7 +27,7 @@ const data = [
   }
 ]
 
-app.get('/posts', (req, res) => {
+app.get('/posts', (req: Request, res: Response) => {
   res.send(data)
 })
 
@@ -35,7 +36,7 @@ app.get('/posts/:postId', (req, res) => {
   const { postId } = req.params;
 
   // filter
-  const posts = data.filter(item => item.id == postId);
+  const posts = data.filter(item => item.id == parseInt(postId));
 
   // responsse
   res.send(posts[0])
@@ -44,7 +45,7 @@ app.get('/posts/:postId', (req, res) => {
 /**
  * 创建内容
  */
-app.post('/posts', (req, res) => {
+app.post('/posts', (req: Request, res: Response) => {
   // 获取请求里的数据
   const { content } = req.body;
   
