@@ -19,6 +19,10 @@ export const defaultErrHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  if (err.message) {
+    console.log('Fuck Error: ', err.message)
+  }
+
   let statusCose: number, message: string;
   switch (err.message) {
     default:
