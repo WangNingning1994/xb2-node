@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express' 
 
 /**
- * log request url
+ * log request url, demo usage of middleware
  */
 
 export const requestUrl = (req: Request, res: Response, next: NextFunction) => {
