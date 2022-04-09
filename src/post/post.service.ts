@@ -5,7 +5,7 @@ import { PostModel } from './post.model';
 /**
  * 获取内容列表
  */
-const getPosts = async () => {
+export const getPosts = async () => {
   const statement = `
     SELECT
       post.id,
@@ -54,4 +54,19 @@ export const updatePost = async (postId: number, post: PostModel) => {
   return data;
 }
 
-export { getPosts };
+/**
+ * 删除内容
+ */
+export const deletePost = async (postId: number) => {
+  // 准备查询
+  const statement = `
+    DELETE FROM post
+    WHERE id = ?
+  `;
+
+  // 执行查询
+  const [data] = await connection.promise().query(statement, postId);
+
+  // 返回数据
+  return data;
+}
