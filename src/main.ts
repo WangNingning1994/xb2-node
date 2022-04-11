@@ -14,5 +14,5 @@ connection.connect(err => {
     console.log('连接数据服务失败：', err.message);
     return
   }
-  console.log('成功连接数据服');
+  console.log('🤟成功连接数据服务');
 })

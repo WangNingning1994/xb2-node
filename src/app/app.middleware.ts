@@ -25,9 +25,21 @@ export const defaultErrHandler = (
 
   let statusCose: number, message: string;
   switch (err.message) {
+    case 'NAME_REQUIRED':
+      statusCose = 400; // bad request
+      message = 'Enter your fucking name';
+      break;
+    case 'PASSWORD_REQUIRED':
+      statusCose = 400; // bad request
+      message = 'Enter your fucking password';
+      break;
+    case 'USER_ALREADY_EXIST':
+      statusCose = 409; // conflict
+      message = 'You fucking name has been taken by others';
+      break;
     default:
       statusCose = 500;
-      message = '你猜怎么着, 服务器挂了哟';
+      message = '😅 Oops, something shit happened!';
       break;
   }
   res.status(statusCose).send({message});
