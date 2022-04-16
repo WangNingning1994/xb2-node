@@ -1,6 +1,7 @@
 import express from 'express';
 import postRouter from '../post/post.router'
 import userRouter from '../user/user.router'
+import authRouter from '../auth/auth.router'
 import { defaultErrHandler } from './app.middleware'
 
 /**
@@ -17,7 +18,7 @@ app.use(express.json());
 /**
  * router
  */
-app.use(postRouter, userRouter);
+app.use(postRouter, userRouter, authRouter);
 
 /**
  * error handler

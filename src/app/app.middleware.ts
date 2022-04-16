@@ -37,6 +37,14 @@ export const defaultErrHandler = (
       statusCose = 409; // conflict
       message = 'You fucking name has been taken by others';
       break;
+    case 'USER_DOES_NOT_EXIST':
+      statusCose = 400;
+      message = 'No fucking user matched';
+      break;
+    case 'PASSWORD_DOES_NOT_MATCH':
+      statusCose = 400;
+      message = 'Wrong password';
+      break;
     default:
       statusCose = 500;
       message = '😅 Oops, something shit happened!';
