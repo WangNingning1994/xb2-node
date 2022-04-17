@@ -20,35 +20,39 @@ export const defaultErrHandler = (
   next: NextFunction
 ) => {
   if (err.message) {
-    console.log('Fuck Error: ', err.message)
+    console.log('Fucking Error: ', err.message)
   }
 
-  let statusCose: number, message: string;
+  let statusCode: number, message: string;
   switch (err.message) {
     case 'NAME_REQUIRED':
-      statusCose = 400; // bad request
+      statusCode = 400; // bad request
       message = 'Enter your fucking name';
       break;
     case 'PASSWORD_REQUIRED':
-      statusCose = 400; // bad request
+      statusCode = 400; // bad request
       message = 'Enter your fucking password';
       break;
     case 'USER_ALREADY_EXIST':
-      statusCose = 409; // conflict
+      statusCode = 409; // conflict
       message = 'You fucking name has been taken by others';
       break;
     case 'USER_DOES_NOT_EXIST':
-      statusCose = 400;
+      statusCode = 400;
       message = 'No fucking user matched';
       break;
     case 'PASSWORD_DOES_NOT_MATCH':
-      statusCose = 400;
+      statusCode = 400;
       message = 'Wrong password';
       break;
+    case 'UNAUTHORIZED':
+      statusCode = 401;
+      message = 'please login first';
+      break;
     default:
-      statusCose = 500;
+      statusCode = 500;
       message = '😅 Oops, something shit happened!';
       break;
   }
-  res.status(statusCose).send({message});
+  res.status(statusCode).send({message});
 }

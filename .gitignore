@@ -12,3 +12,4 @@ logs*.lognpm-debug.log*
 !.vscode/extensions.json
 # env file
 .env*
+config/*.key
