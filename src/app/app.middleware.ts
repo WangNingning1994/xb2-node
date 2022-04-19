@@ -49,6 +49,10 @@ export const defaultErrHandler = (
       statusCode = 401;
       message = 'please login first';
       break;
+    case 'USER_DOES_NOT_OWN_RESOURCE':
+      statusCode = 403;
+      message = 'you cant handle this';
+      break;
     default:
       statusCode = 500;
       message = '😅 Oops, something shit happened!';
