@@ -1,9 +1,8 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 /**
- * config app
+ * export config
  */
-
 export const { APP_PORT } = process.env;
