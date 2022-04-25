@@ -1,4 +1,5 @@
 import express from 'express';
+import { defaultErrorHandler } from './app.middleware';
 import postRouter from '../post/post.router';
 
 /**
@@ -12,9 +13,14 @@ const app = express();
 app.use(express.json());
 
 /**
- * 使用接口，回想在express官网上看到过其称 router 为 mini app
+ * 使用接口
  */
 app.use(postRouter);
+
+/**
+ * use middleware to handle error
+ */
+app.use(defaultErrorHandler);
 
 /**
  * export app

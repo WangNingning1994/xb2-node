@@ -1,8 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
+import { getPosts } from './post.service';
 
 /**
  * 内容列表
  */
 export const index = (req: Request, res: Response, next: NextFunction) => {
-  res.send('内容列表接口');
+  if (req.headers.authorization !== 'SECRET') {
+    return next(new Error());
+  }
+
+  const posts = getPosts();
+  res.send(posts);
 };
