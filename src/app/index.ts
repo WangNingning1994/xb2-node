@@ -17,6 +17,7 @@ app.use(express.json());
  */
 app.use(postRouter);
 
+// 这个似乎必须放在末尾，放在上面不工作
 /**
  * use middleware to handle error
  */

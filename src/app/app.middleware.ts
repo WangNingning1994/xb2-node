@@ -15,7 +15,7 @@ const defaultErrorHandler = (
   switch (error.message) {
     default:
       statusCode = 500;
-      message = 'Oops, something went wrong.';
+      message = 'Oops, something went wrong. -_-#';
       break;
   }
   res.status(statusCode).send({ message });
