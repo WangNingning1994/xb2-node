@@ -20,4 +20,9 @@ router.post('/posts', postController.store);
  */
 router.patch('/posts/:postId', postController.update);
 
+/**
+ * 删除内容
+ */
+router.delete('/posts/:postId', postController.destroy);
+
 export default router;

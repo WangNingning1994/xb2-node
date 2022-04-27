@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { getPosts, createPost, updatePost } from './post.service';
+import { getPosts, createPost, updatePost, deletePost } from './post.service';
+
+import _ from 'lodash';
 
 /**
  * 创建内容
@@ -42,16 +44,34 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
   // 获取内容 ID
   const { postId } = req.params;
 
-  // 准备数据
-  const { title, content } = req.body;
+  // 准备数据 - 通过 lodash 提供的方法来组装对象
+  const post = _.pick(req.body, ['title', 'content']);
+  console.log('=== post object: ===');
+  console.log(post);
 
   // 创建内容
   try {
     console.log('=== Updating ===');
-    console.log(typeof content);
-    const data = await updatePost(parseInt(postId, 10), { title, content });
+    const data = await updatePost(parseInt(postId, 10), post);
     res.send(data);
   } catch (error) {
     next(error);
+  }
+}
+
+/**
+ * 删除内容
+ */
+export const destroy = async (req: Request, res: Response, next: NextFunction) => {
+  // 获取内容 ID
+  const { postId } = req.params;
+
+  // 删除内容
+  try {
+    // 此处的 data 是 service 里的数据库驱动执行完 SQL 后返回的值
+    const data = await deletePost(parseInt(postId, 10)); 
+    res.send(data);
+  } catch (error) {
+    next(error); 
   }
 }
