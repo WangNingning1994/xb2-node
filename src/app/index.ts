@@ -1,6 +1,7 @@
 import express from 'express';
 import { defaultErrorHandler } from './app.middleware';
 import postRouter from '../post/post.router';
+import userRouter from '../user/user.router';
 
 /**
  * create app
@@ -13,9 +14,9 @@ const app = express();
 app.use(express.json());
 
 /**
- * 使用接口
+ * 使用接口（或称路由）
  */
-app.use(postRouter);
+app.use(postRouter, userRouter);
 
 // 这个似乎必须放在末尾，放在上面不工作
 /**
