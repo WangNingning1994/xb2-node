@@ -9,13 +9,26 @@ import { UserModel } from "./user.model";
 /**
  * 按用户名查找用户
  */
-export const getUserByName = async (name: string) => {
+// 这里重构了这个方法，让它支持可选的密码参数，
+// 若是在登录验证阶段调用，就需验证密码和用户名匹配
+interface GetUserOptions {
+  password?: boolean;
+}
+export const getUserByName = async (name: string, options: GetUserOptions = {}) => {
+  // 准备选项
+  const { password } = options;
+
   // 准备查询
   const statement = `
-    SELECT id, name 
+    SELECT id, name
+    ${ password ? ', password' : '' }
     FROM user
     WHERE name = ? 
   `;
+  // 上面的SQL语句容易出错，select 出 id, name, password 的值
+  // 而不是把 password 放在 WHERE 后头
+
+
   // 执行查询
   const [data] = await connection.promise().query(statement, name);
 

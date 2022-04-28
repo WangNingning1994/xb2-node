@@ -26,6 +26,14 @@ const defaultErrorHandler = (
       statusCode = 409; // conflict
       message = 'Name already exists.';
       break;
+    case 'USER_DOES_NOT_EXIST':
+      statusCode = 400;
+      message = 'User does not exist.';
+      break;
+    case 'PASSWORD_DOES_NOT_MATCH':
+      statusCode = 400;
+      message = 'Wrong password';
+      break;
     default:
       statusCode = 500; // 服务器内部错误
       message = 'Oops, something went wrong. -_-#';
