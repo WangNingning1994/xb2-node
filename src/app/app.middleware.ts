@@ -34,6 +34,10 @@ const defaultErrorHandler = (
       statusCode = 400;
       message = 'Wrong password';
       break;
+    case 'UNAUTHORIZED':
+      statusCode = 401; // unauthorized
+      message = 'Unauthorized!'
+      break;
     default:
       statusCode = 500; // 服务器内部错误
       message = 'Oops, something went wrong. -_-#';

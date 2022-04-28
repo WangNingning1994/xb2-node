@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import * as userService from '../user/user.service';
+import { PUBLIC_KEY } from '../app/app.config';
+import { TokenPayload } from './auth.interface';
 
 const validateLoginData = async (req: Request, res: Response, next: NextFunction) => {
   const { name, password } = req.body;
@@ -36,8 +39,37 @@ const validateLoginData = async (req: Request, res: Response, next: NextFunction
   console.log('=== User Data: ===');
   console.log(user);
 
+  req.body.user = user;
+
   // 这里还要加一下 next(), 不然请求就卡住了
   next();
 }
 
-export { validateLoginData }
+const authGuard = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // 提取 Authorization
+    const authorization = req.header('Authorization');
+    if (!authorization) throw new Error();
+
+    // 提取jwt令牌
+    const token = authorization.replace('Bearer ', '');
+    if (!token) throw new Error();
+
+    // 验证令牌
+    const decoded = jwt.verify(token, PUBLIC_KEY, {
+      algorithms: ['RS256'],
+    });
+
+    req.user = decoded as TokenPayload;
+    console.log(req.user);
+
+    // 下一步
+    next();
+  } catch (error) {
+    // 下一步
+    next(new Error('UNAUTHORIZED'));
+  }
+
+}
+
+export { validateLoginData, authGuard }
