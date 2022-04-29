@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { identity } from 'lodash';
 import { signToken } from './auth.service';
 
 const login = (req: Request, res: Response, next: NextFunction) => {

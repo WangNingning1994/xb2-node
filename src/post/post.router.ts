@@ -1,5 +1,6 @@
 import express from 'express';
 import { logRequestUrl } from '../app/app.middleware';
+import { authGuard } from '../auth/auth.middleware';
 import * as postController from './post.controller';
 
 const router = express.Router();
@@ -13,7 +14,7 @@ router.get('/posts', logRequestUrl, postController.index);
 /**
  * 创建内容
  */
-router.post('/posts', postController.store);
+router.post('/posts', authGuard, postController.store);
 
 /**
  * 更新内容
