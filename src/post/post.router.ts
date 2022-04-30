@@ -1,6 +1,6 @@
 import express from 'express';
 import { logRequestUrl } from '../app/app.middleware';
-import { authGuard } from '../auth/auth.middleware';
+import { authGuard, accessControl } from '../auth/auth.middleware';
 import * as postController from './post.controller';
 
 const router = express.Router();
@@ -19,11 +19,21 @@ router.post('/posts', authGuard, postController.store);
 /**
  * 更新内容
  */
-router.patch('/posts/:postId', postController.update);
+router.patch(
+  '/posts/:postId',
+  authGuard,
+  accessControl({ possession: true }),
+  postController.update,
+);
 
 /**
  * 删除内容
  */
-router.delete('/posts/:postId', postController.destroy);
+router.delete(
+  '/posts/:postId',
+  authGuard,
+  accessControl({ possession: true }),
+  postController.destroy,
+);
 
 export default router;

@@ -36,7 +36,11 @@ const defaultErrorHandler = (
       break;
     case 'UNAUTHORIZED':
       statusCode = 401; // unauthorized
-      message = 'Unauthorized!'
+      message = 'Unauthorized!';
+      break;
+    case 'USER_DOES_NOT_OWN_RESOURCE':
+      statusCode = 403; // forbidden
+      message = '您不能处理这个内容';
       break;
     default:
       statusCode = 500; // 服务器内部错误
