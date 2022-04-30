@@ -13,3 +13,5 @@ logs*.lognpm-debug.log*
 # env file
 .env*
 config/*.key
+# file uploads
+/uploads
