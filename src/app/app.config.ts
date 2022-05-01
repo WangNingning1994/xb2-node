@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ export const {
   MYSQL_PORT,
   MYSQL_USER,
   MYSQL_PASSWORD,
-  MYSQL_DATABASE,
+  MYSQL_DBNAME,
 } = process.env;
 
 /**
