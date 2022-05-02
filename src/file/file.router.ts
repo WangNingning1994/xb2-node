@@ -1,11 +1,17 @@
 import express from 'express';
 import { authGuard } from '../auth/auth.middleware';
-import * as fileRouter from './file.controller';
+import * as fileController from './file.controller';
 import { fileInterceptor } from './file.middleware';
 
 const router = express.Router();
-
-router.post('/files', authGuard, fileInterceptor, fileRouter.store);
+/**
+ * 上传文件
+ */
+router.post('/files', authGuard, fileInterceptor, fileController.store);
+/**
+ * 文件服务
+ */
+router.get('/files/:fileId/serve', fileController.serve);
 
 /**
  * 导出路由
