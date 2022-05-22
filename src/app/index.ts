@@ -5,10 +5,17 @@ import authRouter from '../auth/auth.router';
 import fileRouter from '../file/file.router';
 import { defaultErrHandler } from './app.middleware';
 
+import cors from 'cors';
+
 /**
  * create app
  */
 const app = express();
+
+/**
+ * handle cors
+ */
+app.use(cors());
 
 /**
  * use middleware to handle JSON data
