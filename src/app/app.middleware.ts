@@ -42,6 +42,10 @@ const defaultErrorHandler = (
       statusCode = 403; // forbidden
       message = '您不能处理这个内容';
       break;
+    case 'TAG_ALREADY_EXISTS':
+      statusCode = 400;
+      message = '标签已存在';
+      break;
     default:
       statusCode = 500; // 服务器内部错误
       message = 'Oops, something went wrong. -_-#';

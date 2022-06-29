@@ -4,6 +4,7 @@ import postRouter from '../post/post.router';
 import userRouter from '../user/user.router';
 import authRouter from '../auth/auth.router';
 import fileRouter from '../file/file.router';
+import tagRouter from '../tag/tag.router';
 
 /**
  * create app
@@ -18,7 +19,7 @@ app.use(express.json());
 /**
  * 使用接口（或称路由）
  */
-app.use(postRouter, userRouter, authRouter, fileRouter);
+app.use(postRouter, userRouter, authRouter, fileRouter, tagRouter);
 
 // 这个似乎必须放在末尾，放在上面不工作
 /**
