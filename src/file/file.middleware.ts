@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import Jimp from 'jimp';
+import { imageResizer } from './file.service';
 
 /**
  * create Multer
@@ -29,6 +30,7 @@ export const fileProcessor = async (
   } catch (error) {
     return next(error); // 交给应用的默认异常处理器
   }
+  console.log(image);
 
   // 准备文件数据
   const { imageSize, tags } = image['_exif'];
@@ -38,6 +40,9 @@ export const fileProcessor = async (
     height: imageSize.height,
     metadata: JSON.stringify(tags),
   };
+
+  // 调整图像尺寸
+  imageResizer(image, req.file);
 
   // 下一步
   next();

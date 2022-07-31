@@ -18,6 +18,10 @@ router.post(
  * 文件服务
  */
 router.get('/files/:fileId/serve', fileController.serve);
+/**
+ * 文件信息
+ */
+router.get('/files/:fileId/metadata', fileController.metadata);
 
 /**
  * 导出路由

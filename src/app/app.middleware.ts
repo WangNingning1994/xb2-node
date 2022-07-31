@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express' 
+import { Request, Response, NextFunction } from 'express';
 
 /**
  * log request url, demo usage of middleware
@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express'
 export const requestUrl = (req: Request, res: Response, next: NextFunction) => {
   console.log(req.url);
   next();
-}
+};
 
 /**
  * default error handler
@@ -17,10 +17,10 @@ export const defaultErrHandler = (
   err: any,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (err.message) {
-    console.log('Fucking Error: ', err.message)
+    console.log('Fucking Error: ', err.message);
   }
 
   let statusCode: number, message: string;
@@ -53,10 +53,14 @@ export const defaultErrHandler = (
       statusCode = 403;
       message = 'you cant handle this';
       break;
+    case 'FUCK_FILE_NOT_FOUND':
+      statusCode = 404;
+      message = 'fuck you, file not found';
+      break;
     default:
       statusCode = 500;
       message = '😅 Oops, something shit happened!';
       break;
   }
-  res.status(statusCode).send({message});
-}
+  res.status(statusCode).send({ message });
+};
