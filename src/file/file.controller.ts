@@ -72,6 +72,15 @@ export const serve = async (
       if (!imageSizes.includes(size)) {
         throw new Error('FUCK_FILE_NOT_FOUND');
       }
+      // 检查文件是否存在
+      const fileExist = fs.existsSync(
+        path.join(root, resized, `${filename}-${size}`),
+      );
+      // 设置文件名与目录
+      if (fileExist) {
+        filename = `${filename}-${size}`;
+        root = path.join(root, resized);
+      }
     }
 
     // 做出响应

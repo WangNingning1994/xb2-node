@@ -1,6 +1,16 @@
-import { Request, Response, NextFunction } from 'express'
-import { getPosts, createPost, updatePost, deletePost } from './post.service';
+import { Request, Response, NextFunction } from 'express';
 import _ from 'lodash';
+import {
+  getPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  createPostTag,
+  postHasTag,
+  deletePostTag,
+} from './post.service';
+import { TagModel } from '../tag/tag.model';
+import { getTagByTagName, createTag } from '../tag/tag.service';
 
 /**
  * 内容列表处理器
@@ -9,15 +19,15 @@ import _ from 'lodash';
 export const index = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const posts = await getPosts();
     res.send(posts);
   } catch (error) {
-    next(error) 
+    next(error);
   }
-}
+};
 
 /**
  * 创建内容
@@ -37,7 +47,7 @@ export const store = async (
   } catch (error) {
     next(error);
   }
-}
+};
 
 /**
  * 更新内容
@@ -59,7 +69,7 @@ export const update = async (
   } catch (error) {
     next(error);
   }
-}
+};
 
 /**
  * 删除内容
@@ -79,4 +89,77 @@ export const destroy = async (
   } catch (error) {
     next(error);
   }
-}
+};
+
+/**
+ * 添加内容标签
+ */
+export const storePostTag = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  // 准备数据
+  const { postId } = req.params;
+  const { name } = req.body;
+
+  let tag: TagModel;
+
+  // 查找标签
+  try {
+    tag = await getTagByTagName(name);
+  } catch (error) {
+    return next(error);
+  }
+
+  // 找到标签，验证内容标签
+  if (tag) {
+    try {
+      const postTag = await postHasTag(parseInt(postId), tag.id);
+      if (postTag) {
+        return next(new Error('POST_ALREADY_HAS_THIS_TAG'));
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  // 没找到标签，创建这个标签
+  if (!tag) {
+    try {
+      const data = await createTag({ name });
+      tag = { id: data.insertId };
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  // 给内容打上标签
+  try {
+    await createPostTag(parseInt(postId), tag.id);
+    res.sendStatus(201);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * 移除内容标签
+ */
+export const destoryPostTag = async (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  // 准备数据
+  const { postId } = request.params;
+  const { tagId } = request.body;
+
+  // 移除内容标签
+  try {
+    await deletePostTag(parseInt(postId), parseInt(tagId));
+    response.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -57,6 +57,14 @@ export const defaultErrHandler = (
       statusCode = 404;
       message = 'fuck you, file not found';
       break;
+    case 'TAG_ALREADY_EXISTS':
+      statusCode = 400;
+      message = 'fuck you, tag already exists.';
+      break;
+    case 'POST_ALREADY_HAS_THIS_TAG':
+      statusCode = 400;
+      message = 'fuck you, post already has this tag.';
+      break;
     default:
       statusCode = 500;
       message = '😅 Oops, something shit happened!';
