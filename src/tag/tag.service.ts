@@ -26,6 +26,7 @@ export const getTagByName = async (tagName: string) => {
     SELECT id, name FROM tag 
     WHERE name = ?
   `;
+  const res = await connection.promise().query(statement, tagName);
   // 执行查询
   const [data] = await connection.promise().query(statement, tagName);
   // 提供数据
