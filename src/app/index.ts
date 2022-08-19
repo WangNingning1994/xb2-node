@@ -4,6 +4,7 @@ import userRouter from '../user/user.router';
 import authRouter from '../auth/auth.router';
 import fileRouter from '../file/file.router';
 import tagRouter from '../tag/tag.router';
+import commentRouter from '../comment/comment.router';
 import { defaultErrHandler } from './app.middleware';
 
 import cors from 'cors';
@@ -27,7 +28,7 @@ app.use(express.json());
 /**
  * router
  */
-app.use(postRouter, userRouter, authRouter, fileRouter, tagRouter);
+app.use(postRouter, userRouter, authRouter, fileRouter, tagRouter, commentRouter);
 
 /**
  * error handler

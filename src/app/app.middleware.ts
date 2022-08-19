@@ -65,6 +65,10 @@ export const defaultErrHandler = (
       statusCode = 400;
       message = 'fuck you, post already has this tag.';
       break;
+    case 'UNABLE_TO_REPLY_THIS_COMMENT':
+      statusCode = 400;
+      message = 'fuck, this is already a reply';
+      break;
     default:
       statusCode = 500;
       message = '😅 Oops, something shit happened!';
